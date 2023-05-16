@@ -14,14 +14,11 @@ Table<item_type>::~Table()
 {
     //iterate over table to delete all entries
     first();
-    //while(iterator != nullptr)
-    //    delete_node();
-    //then reset pointers
-    //delete head;
-    //if(tail != head)
-    //    delete tail;
-    //if(iterator != tail && iterator != head)
-    //    delete iterator;
+    while(iterator != nullptr)
+    {
+        delete_node();
+        iterator = tail;
+    }
 }
 
 #pragma region addNode

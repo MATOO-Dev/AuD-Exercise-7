@@ -57,9 +57,9 @@ int main()
     myTable.last();
     myTable.delete_node();
     myTable.print();
-    std::cout << "\nattempting to delete final entry\n\n";
-    myTable.last();
-    myTable.delete_node();
+    //std::cout << "\nattempting to delete final entry\n\n";
+    //myTable.last();
+    //myTable.delete_node();
     
     std::cout << "final state:\n";
     myTable.print();
