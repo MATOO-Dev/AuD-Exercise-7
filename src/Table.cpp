@@ -17,11 +17,11 @@ Table<item_type>::~Table()
     //while(iterator != nullptr)
     //    delete_node();
     //then reset pointers
-    delete head;
-    if(tail != head)
-        delete tail;
-    if(iterator != tail && iterator != head)
-        delete iterator;
+    //delete head;
+    //if(tail != head)
+    //    delete tail;
+    //if(iterator != tail && iterator != head)
+    //    delete iterator;
 }
 
 #pragma region addNode
@@ -173,16 +173,42 @@ bool Table<item_type>::delete_node()
         return false;
 
     //retarget surrounding nodes
-    if(iterator != tail)
+    //case for middle nodes (default)
+    if(iterator != tail && iterator != head)
+    {
         iterator->previous->next = iterator->next;
-    iterator->next->previous = iterator->previous;
+        iterator->next->previous = iterator->previous;
+    }
+    //case for iterator being tail
+    if(iterator == tail)
+    {
+        //retarget new tail
+        if(size > 1)
+        {
+            iterator->next->previous = nullptr;
+            tail = iterator->next;
+        }
+        //if this is the last element, set to nullptr instead
+        else
+            tail = nullptr;
+    }
+    //case for iterator being head
+    if(iterator == head)
+    {
+        //retarget new head
+        if(size > 1)
+        {
+            iterator->previous->next = nullptr;
+            head = iterator->previous;
+        }
+        //if this is the last element, set to nullptr instead
+        else
+            head = nullptr;
+    }
 
-    //back up and delete iterator position
-    node* temp = iterator->next;
+    //free iterator memory
     delete iterator;
-
-    //retarget iterator to iterator.next (temp);
-    iterator = temp;
+    iterator = nullptr;
 
     //update table size
     size--;
@@ -219,10 +245,9 @@ uint Table<item_type>::length()
 template <class item_type>
 void Table<item_type>::print()
 {
-    std::cout << "printing\n";
     std::cout << "size: " << size << std::endl;
     node* current = tail;
-    for(int i = 0; i < size; i ++)
+    while(current != nullptr)
     {
         std::cout << "node: " << current << ", value: " << current->value << "\n";
         if(current == head)

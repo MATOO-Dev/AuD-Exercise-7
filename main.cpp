@@ -47,10 +47,18 @@ int main()
     myTable.print();
     std::cout <<"\n";
 
-    myTable.first();
-    myTable.next();
+    myTable.last();
+    //myTable.next();
 
-    std::cout << "attempting to delete second entry\n";
+    std::cout << "attempting to delete first entry\n\n";
+    myTable.delete_node();
+    myTable.print();
+    std::cout << "\nattempting to delete another entry\n\n";
+    myTable.last();
+    myTable.delete_node();
+    myTable.print();
+    std::cout << "\nattempting to delete final entry\n\n";
+    myTable.last();
     myTable.delete_node();
     
     std::cout << "final state:\n";
