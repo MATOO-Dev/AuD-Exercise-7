@@ -35,31 +35,58 @@ int main()
 {
     Table<int> myTable = Table<int>();
 
-    //extra space for valgrind readability;
+    //extra space for valgrind and gdb readability;
     std::cout << "\n";
     //get table size
-
-    myTable.append(0);
-    myTable.append(2);
-    myTable.append(1);
+    for(int i = 0; i < 5; i++)
+    {
+        myTable.insert(i);
+        myTable.first();
+    }
+    for(int i = -1; i > -5; i--)
+        myTable.append(i);
 
     std::cout << "initial state:\n";
     myTable.print();
     std::cout <<"\n";
 
-    myTable.last();
-    //myTable.next();
+    myTable.first();
+    myTable.next();
+    myTable.next();
+    myTable.previous();
+    myTable.next();
+    myTable.next();
+    
+    int container = 0;
+    myTable.get_node(container);
+    std::cout << "entry value is: " << container << std::endl;
 
-    std::cout << "attempting to delete first entry\n\n";
-    myTable.delete_node();
+    std::cout << "setting entry value to 27\n";
+    container = 27;
+    myTable.set_node(container);
+    myTable.get_node(container);
+    std::cout <<"\n";
+
     myTable.print();
-    std::cout << "\nattempting to delete another entry\n\n";
+    myTable.first();
+    myTable.delete_node();
+    std::cout <<"\n";
+    std::cout << "deleting first entry\n";
+    
+    myTable.print();
     myTable.last();
     myTable.delete_node();
+    std::cout <<"\n";
+    std::cout << "deleting last entry\n";
+
     myTable.print();
-    //std::cout << "\nattempting to delete final entry\n\n";
-    //myTable.last();
-    //myTable.delete_node();
+    myTable.first();
+    myTable.next();
+    myTable.next();
+    myTable.next();
+    myTable.delete_node();
+    std::cout <<"\n";
+    std::cout << "deleting middle entry\n";
     
     std::cout << "final state:\n";
     myTable.print();
