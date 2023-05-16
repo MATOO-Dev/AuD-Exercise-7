@@ -39,9 +39,9 @@ int main()
     std::cout << "\n";
     //get table size
 
-    myTable.insert(0);
-    myTable.insert(2);
-    myTable.insert(1);
+    myTable.append(0);
+    myTable.append(2);
+    myTable.append(1);
 
     std::cout << "initial state:\n";
     myTable.print();

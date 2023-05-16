@@ -78,34 +78,43 @@ bool Table<item_type>::append(item_type r)
     //special case if table is empty
     if(size == 0)
     {
-        node item;
-        item.value = r;
-        head = &item;
-        tail = &item;
-        iterator = &item;
+        //create node and assign value
+        node* item = new node();
+        item->value = r;
+
+        //assign pointers
+        head = item;
+        tail = item;
+        iterator = item;
+        item->previous = nullptr;
+        item->next = nullptr;
+
+        //increase size
+        size++;
         return true;
     }
 
     //if pointers are not valid, cancel
-    if(head == nullptr)
+    if(iterator == nullptr || head == nullptr)
         return false;
-
+    
     //create new node and assign its value
-    node item;
-    item.value = r;
+    node* item = new node();
+    item->value = r;
     
     //set node references
-    item.previous = head;
-    item.next = nullptr;
+    item->previous = head;
+    item->next = nullptr;
 
-    //retarget reference for current head
-    head->next = &item;
-
-    //retarget head
-    head = &item;
+    //retarget references for old head
+    head->next = item;
+    iterator->previous = item;
 
     //update table size
     size++;
+
+    //retarget head
+    head = item;
 
     return true;
 }
